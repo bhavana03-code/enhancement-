@@ -3,21 +3,16 @@ import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
-
 import CartContext from '../../context/CartContext'
-
 import Header from '../Header'
 import SimilarProductItem from '../SimilarProductItem'
-
 import './index.css'
-
 const apiStatusConstants = {
   initial: 'INITIAL',
   success: 'SUCCESS',
   failure: 'FAILURE',
   inProgress: 'IN_PROGRESS',
 }
-
 class ProductItemDetails extends Component {
   state = {
     productData: {},
@@ -25,11 +20,9 @@ class ProductItemDetails extends Component {
     apiStatus: apiStatusConstants.initial,
     quantity: 1,
   }
-
   componentDidMount() {
     this.getProductData()
   }
-
   getFormattedData = data => ({
     availability: data.availability,
     brand: data.brand,
@@ -41,12 +34,10 @@ class ProductItemDetails extends Component {
     title: data.title,
     totalReviews: data.total_reviews,
   })
-
   getProductData = async () => {
     const {match} = this.props
     const {params} = match
     const {id} = params
-
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
@@ -77,13 +68,11 @@ class ProductItemDetails extends Component {
       })
     }
   }
-
   renderLoadingView = () => (
     <div className="products-details-loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
-
   renderFailureView = () => (
     <div className="product-details-error-view-container">
       <img
@@ -99,18 +88,15 @@ class ProductItemDetails extends Component {
       </Link>
     </div>
   )
-
   onDecrementQuantity = () => {
     const {quantity} = this.state
     if (quantity > 1) {
       this.setState(prevState => ({quantity: prevState.quantity - 1}))
     }
   }
-
   onIncrementQuantity = () => {
     this.setState(prevState => ({quantity: prevState.quantity + 1}))
   }
-
   renderProductDetailsView = () => (
     <CartContext.Consumer>
       {value => {
@@ -129,7 +115,6 @@ class ProductItemDetails extends Component {
         const onClickAddToCart = () => {
           addCartItem({...productData, quantity})
         }
-
         return (
           <div className="product-details-success-view">
             <div className="product-details-container">
@@ -162,15 +147,15 @@ class ProductItemDetails extends Component {
                   <button
                     type="button"
                     className="quantity-controller-button"
+                    aria-label="Mute volume"
                     onClick={this.onDecrementQuantity}
                     data-testid="minus"
                   >
-                    <BsDashSquare className="quantity-controller-icon" />
-                  </button>
-                  <p className="quantity">{quantity}</p>
+@@ -171,6 +172,7 @@ class ProductItemDetails extends Component {
                   <button
                     type="button"
                     className="quantity-controller-button"
+                    aria-label="Mute volume"
                     onClick={this.onIncrementQuantity}
                     data-testid="plus"
                   >
@@ -200,10 +185,8 @@ class ProductItemDetails extends Component {
       }}
     </CartContext.Consumer>
   )
-
   renderProductDetails = () => {
     const {apiStatus} = this.state
-
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderProductDetailsView()
@@ -215,7 +198,6 @@ class ProductItemDetails extends Component {
         return null
     }
   }
-
   render() {
     return (
       <>
@@ -227,5 +209,4 @@ class ProductItemDetails extends Component {
     )
   }
 }
-
 export default ProductItemDetails
