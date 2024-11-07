@@ -10,14 +10,14 @@ import './index.css'
 const Cart = () => (
   <CartContext.Consumer>
     {value => {
-      const {cartList} = value
       const {cartList, removeAllCartItems} = value
       const showEmptyView = cartList.length === 0
-      // TODO: Update the functionality to remove all the items in the cart
 
       return (
         <>
-@@ -21,9 +21,18 @@ const Cart = () => (
+          <Header />
+          <div className="cart-container">
+            {showEmptyView ? (
               <EmptyCartView />
             ) : (
               <div className="cart-content-container">
@@ -32,7 +32,6 @@ const Cart = () => (
                   </button>
                 </div>
                 <CartListView />
-                {/* TODO: Add your code for Cart Summary here */}
                 <CartSummary />
               </div>
             )}
@@ -42,4 +41,5 @@ const Cart = () => (
     }}
   </CartContext.Consumer>
 )
+export default Cart
 export default Cart
