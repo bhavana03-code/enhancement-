@@ -9,21 +9,13 @@ const CartItem = props => (
   <CartContext.Consumer>
     {value => {
       const {
-        removeCartItem,
-        incrementCartItemQuantity,
-        decrementCartItemQuantity,
+        removeCartItem
       } = value
       const {cartItemDetails} = props
       const {id, title, brand, quantity, price, imageUrl} = cartItemDetails
 
       const onClickDecrement = () => {
         decrementCartItemQuantity(id)
-      }
-      const onClickIncrement = () => {
-        incrementCartItemQuantity(id)
-      }
-      const onRemoveCartItem = () => {
-        removeCartItem(id)
       }
       const totalPrice = price * quantity
 
@@ -36,23 +28,15 @@ const CartItem = props => (
               <p className="cart-product-brand">by {brand}</p>
             </div>
             <div className="cart-quantity-container">
-              <button
-                type="button"
-                className="quantity-controller-button"
-                data-testid="minus"
-                onClick={onClickDecrement}
-              >
+              <button type="button" className="quantity-controller-button">
                 <BsDashSquare color="#52606D" size={12} />
               </button>
               <p className="cart-quantity">{quantity}</p>
-              <button
-                type="button"
-                className="quantity-controller-button"
-                data-testid="plus"
-                onClick={onClickIncrement}
-              >
-                <BsPlusSquare color="#52606D" size={12} />
-              </button>
+<button
+            className="delete-button"
+            type="button"
+            onClick={onRemoveCartItem}
+          >
             </div>
             <div className="total-price-remove-container">
               <p className="cart-total-price">Rs {totalPrice}/-</p>
