@@ -6,11 +6,10 @@ import EmptyCartView from '../EmptyCartView'
 import CartSummary from '../CartSummary'
 
 import './index.css'
-
 const Cart = () => (
   <CartContext.Consumer>
     {value => {
-      const {cartList, removeAllCartItems} = value
+      const {cartList} = value
       const showEmptyView = cartList.length === 0
       const onClickRemoveAllBtn = () => {
         removeAllCartItems()
@@ -33,7 +32,6 @@ const Cart = () => (
                   Remove All
                 </button>
                 <CartListView />
-                <CartSummary />
               </div>
             )}
           </div>
